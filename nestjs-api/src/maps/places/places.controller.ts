@@ -16,7 +16,7 @@ export class PlacesController {
   @Get()
   getPlaces(
     @ZodValidation({ query: getPlacesQuerySchema })
-    @Query('text')
+    @Query()
     { text }: IGetPlacesQuery,
   ) {
     return this.placesService.findPlaces(text);
