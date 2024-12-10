@@ -48,4 +48,8 @@ export class RoutesService {
       },
     });
   }
+
+  findAll() {
+    return this.prismaService.route.findMany();
+  }
 }
