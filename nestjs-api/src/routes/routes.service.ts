@@ -52,4 +52,10 @@ export class RoutesService {
   findAll() {
     return this.prismaService.route.findMany();
   }
+
+  findOne(id: string) {
+    return this.prismaService.route.findUniqueOrThrow({
+      where: { id },
+    });
+  }
 }
