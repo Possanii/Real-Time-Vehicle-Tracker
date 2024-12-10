@@ -9,5 +9,6 @@ import { DirectionsService } from './directions/directions.service';
   imports: [GoogleMapsModule],
   controllers: [PlacesController, DirectionsController],
   providers: [PlacesService, DirectionsService],
+  exports: [DirectionsService],
 })
 export class MapsModule {}
