@@ -4,8 +4,8 @@ RUN apt update && \
   apt install openssl procps -y && \
   npm install -g @nestjs/cli@10.4.8
 
-USER node
+USER root
 
-WORKDIR /home/node/app
+WORKDIR /home/root/app
 
 CMD [ "tail", "-f", "/dev/null" ]
