@@ -5,7 +5,6 @@ go 1.23.1
 toolchain go1.23.4
 
 require (
-	github.com/devfullcycle/imersao20/simulator v0.0.0-20241212143424-ae52ca0244a4
 	github.com/segmentio/kafka-go v0.4.47
 	go.mongodb.org/mongo-driver v1.17.1
 )
