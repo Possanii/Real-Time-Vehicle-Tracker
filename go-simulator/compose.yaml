@@ -1,0 +1,26 @@
+include:
+  - ../mongodb/docker-compose.yaml
+  - ../kafka/docker-compose.yaml
+
+services:
+
+  simulator:
+    build:
+      context: .
+      target: final
+      dockerfile: Dockerfile.prod
+    container_name: simulator
+    environment:
+      - MONGO_URI=mongodb://root:root@mongo:27017/routes?authSource=admin&directConnection=true
+      - KAFKA_BROKER=kafka:9092
+      - KAFKA_ROUTE_TOPIC=route
+      - KAFKA_FREIGHT_TOPIC=freight
+      - KAFKA_SIMULATOR_TOPIC=simulator
+      - KAFKA_GROUP_ID=route-group
+    depends_on:
+      - mongo
+      - kafka
+    volumes:
+      - .:/app
+
+  
