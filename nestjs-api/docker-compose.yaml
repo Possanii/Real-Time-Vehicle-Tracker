@@ -1,18 +1,11 @@
+include:
+  - ../mongodb/docker-compose.yaml
+  - ../kafka/docker-compose.yaml
+
 services:
-  app:
+  nest:
     build: .
     volumes:
-      - .:/home/root/app
+      - .:/home/node/app
     ports:
       - 3000:3000
-  db:
-    build: ./.docker/mongodb
-    restart: unless-stopped
-    container_name: vehicle-tracking
-    env_file:
-      - .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-    ports:
-      - '27017:27017'
