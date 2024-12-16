@@ -9,7 +9,7 @@ export class RoutesDriverConsumer {
 
   constructor(private httpService: HttpService) {}
 
-  @MessagePattern('simulation')
+  @MessagePattern('simulator')
   async driverMoved(payload: KafkaContext) {
     this.logger.log(
       `Receiving message from topic ${payload.topic}`,

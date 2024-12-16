@@ -19,20 +19,41 @@ export class RoutesController {
     private routesDriverService: RoutesDriverService,
   ) {}
 
-  @Post(':id/emit-new-points')
-  emitNewPoints(
-    @ZodValidation({ params: getRouteByIdParamsSchame })
-    @Param('id')
-    id: string,
-    @ZodValidation({ params: emitNewPointRouteBodySchema })
-    @Body()
-    payload: IEmitNewPointBody,
+  @Post(':id/process-route')
+  processRoute(
+    @Param('id') id: string,
+    @Body() payload: { lat: number; lng: number },
   ) {
     return this.routesDriverService.processRoute({
       route_id: id,
       lat: payload.lat,
       lng: payload.lng,
     });
+  }
+
+  @Post(':id/emit-new-points')
+  emitNewPoints(
+    @ZodValidation({ params: getRouteByIdParamsSchame })
+    @Param('id')
+    params: IGetRouteById,
+    @ZodValidation({ params: emitNewPointRouteBodySchema })
+    @Body()
+    payload: IEmitNewPointBody,
+  ) {
+    return this.routesDriverService.processRoute({
+      route_id: params.id,
+      lat: payload.lat,
+      lng: payload.lng,
+    });
+  }
+
+  @Post(':id/start')
+  startRoute(
+    @ZodValidation({ params: getRouteByIdParamsSchame })
+    @Param('id')
+    params: IGetRouteById,
+  ) {
+    return this.routesService.startRoute(params.id);
   }
 
   @Post()
