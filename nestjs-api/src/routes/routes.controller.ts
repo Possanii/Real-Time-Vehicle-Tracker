@@ -6,10 +6,34 @@ import {
   getRouteByIdParamsSchame,
   IGetRouteById,
 } from './dto/get-route-by-id.dto';
+import {
+  emitNewPointRouteBodySchema,
+  IEmitNewPointBody,
+} from './dto/emit-new-point-route.dto';
+import { RoutesDriverService } from './routes-driver/routes-driver.service';
 
 @Controller('routes')
 export class RoutesController {
-  constructor(private readonly routesService: RoutesService) {}
+  constructor(
+    private readonly routesService: RoutesService,
+    private routesDriverService: RoutesDriverService,
+  ) {}
+
+  @Post(':id/emit-new-points')
+  emitNewPoints(
+    @ZodValidation({ params: getRouteByIdParamsSchame })
+    @Param('id')
+    id: string,
+    @ZodValidation({ params: emitNewPointRouteBodySchema })
+    @Body()
+    payload: IEmitNewPointBody,
+  ) {
+    return this.routesDriverService.processRoute({
+      route_id: id,
+      lat: payload.lat,
+      lng: payload.lng,
+    });
+  }
 
   @Post()
   create(
