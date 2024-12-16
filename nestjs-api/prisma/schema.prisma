@@ -21,6 +21,7 @@ model Route {
   distance    Float
   duration    Float
   directions  Json
+  freight     Float?
   created_at  DateTime     @default(now())
   updated_at  DateTime     @updatedAt
   RouteDriver RouteDriver?

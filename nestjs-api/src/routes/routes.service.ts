@@ -3,6 +3,7 @@ import { ICreateRoute } from './dto/create-route.dto';
 import { PrismaService } from '@/database/prisma/prisma.service';
 import { DirectionsService } from '@/maps/directions/directions.service';
 import * as kafkaLib from '@confluentinc/kafka-javascript';
+import { IUpdateRoute } from './dto/update-route.dto';
 
 @Injectable()
 export class RoutesService {
@@ -87,6 +88,13 @@ export class RoutesService {
   findOne(id: string) {
     return this.prismaService.route.findUniqueOrThrow({
       where: { id },
+    });
+  }
+
+  update(id: string, updateRouteDto: IUpdateRoute) {
+    return this.prismaService.route.update({
+      where: { id },
+      data: updateRouteDto,
     });
   }
 }
