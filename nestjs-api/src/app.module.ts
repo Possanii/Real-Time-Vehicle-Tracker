@@ -4,6 +4,7 @@ import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { ConfigModule } from '@nestjs/config';
 import { RoutesModule } from './routes/routes.module';
 import { DatabaseModule } from './database/database.module';
+import { KafkaModule } from './kafka/kafka.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseModule } from './database/database.module';
     GoogleMapsModule,
     RoutesModule,
     DatabaseModule,
+    KafkaModule,
   ],
   controllers: [],
   providers: [],

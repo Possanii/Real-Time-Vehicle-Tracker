@@ -6,6 +6,6 @@ services:
   nest:
     build: .
     volumes:
-      - .:/home/node/app
+      - .:/home/root/app
     ports:
       - 3000:3000
