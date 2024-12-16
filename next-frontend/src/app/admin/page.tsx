@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { RefObject, useEffect, useRef } from "react";
-import { useMap } from "../hooks/useMap";
-import { socket } from "../utils/socket-io";
+import { RefObject, useEffect, useRef } from 'react';
+import { useMap } from '../hooks/useMap';
+import { socket } from '../utils/socket-io';
 
 export function AdminPage() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ export function AdminPage() {
           console.log({ routeId: data.route_id });
 
           const result = await fetch(
-            `http://localhost:3001/api/routes/${data.route_id}`
+            `${process.env.NEXT_API_URL}/routes/${data.route_id}`
           );
 
           const route = await result.json();

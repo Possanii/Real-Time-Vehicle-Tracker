@@ -1,15 +1,15 @@
-import { MapNewRoute } from "./MapNewRoute";
-import { NewRouteForm } from "./NewRouteForm";
+import { MapNewRoute } from './MapNewRoute';
+import { NewRouteForm } from './NewRouteForm';
 
 export async function searchDirections(source: string, destination: string) {
   const [sourceResponse, destinationResponse] = await Promise.all([
-    fetch(`http://localhost:3000/places?text=${source}`, {
+    fetch(`${process.env.NEST_API_URL}/places?text=${source}`, {
       // cache: "force-cache", //default
       // next: {
       //   revalidate: 1 * 60 * 60 * 24, // 1 dia
       // }
     }),
-    fetch(`http://localhost:3000/places?text=${destination}`, {
+    fetch(`${process.env.NEST_API_URL}/places?text=${destination}`, {
       // cache: "force-cache", //default
       // next: {
       //   revalidate: 1 * 60 * 60 * 24, // 1 dia
@@ -19,12 +19,12 @@ export async function searchDirections(source: string, destination: string) {
 
   if (!sourceResponse.ok) {
     console.error(await sourceResponse.text());
-    throw new Error("Failed to fetch source data");
+    throw new Error('Failed to fetch source data');
   }
 
   if (!destinationResponse.ok) {
     console.error(await destinationResponse.text());
-    throw new Error("Failed to fetch destination data");
+    throw new Error('Failed to fetch destination data');
   }
 
   const [sourceData, destinationData] = await Promise.all([
@@ -36,7 +36,7 @@ export async function searchDirections(source: string, destination: string) {
   const placeDestinationId = destinationData.candidates[0].place_id;
 
   const directionsResponse = await fetch(
-    `http://localhost:3000/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`,
+    `${process.env.NEST_API_URL}/directions?originId=${placeSourceId}&destinationId=${placeDestinationId}`,
     {
       // cache: "force-cache", //default
       // next: {
@@ -47,7 +47,7 @@ export async function searchDirections(source: string, destination: string) {
 
   if (!directionsResponse.ok) {
     console.error(await directionsResponse.text());
-    throw new Error("Failed to fetch directions");
+    throw new Error('Failed to fetch directions');
   }
 
   const directionsData = await directionsResponse.json();
@@ -126,19 +126,19 @@ export async function NewRoutePage({
           <div className="mt-4 p-4 border rounded text-contrast">
             <ul>
               <li className="mb-2">
-                <strong>Origem:</strong>{" "}
+                <strong>Origem:</strong>{' '}
                 {directionsData.routes[0].legs[0].start_address}
               </li>
               <li className="mb-2">
-                <strong>Destino:</strong>{" "}
+                <strong>Destino:</strong>{' '}
                 {directionsData.routes[0].legs[0].end_address}
               </li>
               <li className="mb-2">
-                <strong>Distância:</strong>{" "}
+                <strong>Distância:</strong>{' '}
                 {directionsData.routes[0].legs[0].distance.text}
               </li>
               <li className="mb-2">
-                <strong>Duração:</strong>{" "}
+                <strong>Duração:</strong>{' '}
                 {directionsData.routes[0].legs[0].duration.text}
               </li>
             </ul>

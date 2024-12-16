@@ -1,11 +1,11 @@
-import { RouteModel } from "../utils/models";
-import { MapDriver } from "./MapDriver";
+import { RouteModel } from '../utils/models';
+import { MapDriver } from './MapDriver';
 
 export async function getRoutes() {
-  const response = await fetch("http://localhost:3000/routes", {
-    cache: "force-cache",
+  const response = await fetch(`${process.env.NEST_API_URL}/routes`, {
+    cache: 'force-cache',
     next: {
-      tags: ["routes"],
+      tags: ['routes'],
     },
   });
   //revalidate por demanda
@@ -13,12 +13,15 @@ export async function getRoutes() {
 }
 
 export async function getRoute(route_id: string): Promise<RouteModel> {
-  const response = await fetch(`http://localhost:3000/routes/${route_id}`, {
-    cache: "force-cache",
-    next: {
-      tags: [`routes-${route_id}`, route_id],
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEST_API_URL}/routes/${route_id}`,
+    {
+      cache: 'force-cache',
+      next: {
+        tags: [`routes-${route_id}`, route_id],
+      },
+    }
+  );
   //revalidate por demanda
   return response.json();
 }
@@ -68,7 +71,7 @@ export async function DriverPage({
             </select>
             <button
               className="bg-main text-primary p-2 rounded text-xl font-bold"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             >
               Iniciar a viagem
             </button>
