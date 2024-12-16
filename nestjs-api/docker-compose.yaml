@@ -7,5 +7,6 @@ services:
     build: .
     volumes:
       - .:/home/root/app
+    container_name: nest
     ports:
       - 3000:3000
